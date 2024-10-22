@@ -4,7 +4,6 @@ var script = {
     },
 
     generateResults: function () {
-        // Obtenha os dados do formulário
         var formData = {
             //Atributos
             age: document.getElementById('ageInput').value,
