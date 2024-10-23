@@ -2,6 +2,48 @@ var script = {
     init: function () {
         document.getElementById('generateResults').addEventListener('click', this.generateResults);
     },
+    
+
+    calcularPorcentagens: function (data) {
+        let total = 0;
+        let _heartAtack = 0;
+        let _noHeartAtack = 0;
+        let _sex0 = 0;
+        let _sex1 = 0;
+
+        // Percorre a matriz
+        console.log(data)
+        data.forEach(obj => {
+            total++; // Conta o total de objetos
+            if (obj.sex === 1) {
+                _sex1++;
+            }
+
+            if (obj.sex === 0) {
+                _sex0++;
+            }
+
+            if (obj.output === 1) {
+                _heartAtack++; // Conta os outputs 1
+            } else if (obj.output === 0) {
+                _noHeartAtack++; // Conta os outputs 0
+            }
+        });
+
+        // Calcula as porcentagens
+        const heartAtack = ((_heartAtack / total) * 100).toFixed(2); // Para duas casas decimais
+        const noHeartAtack = ((_noHeartAtack / total) * 100).toFixed(2); // Para duas casas decimais
+
+        const sex0 = ((_sex0 / total) * 100).toFixed(2); // Para duas casas decimais
+        const sex1 = ((_sex1 / total) * 100).toFixed(2); // Para duas casas decimais
+
+        return {
+            heartAtack,
+            noHeartAtack,
+            sex0,
+            sex1
+        };
+    },
 
     generateResults: function () {
         var formData = {
@@ -49,6 +91,90 @@ var script = {
                     let finalSimilarity = script.calculateWeightedSimilarity(formData, caseData, weights);
                     return { caseData, similarity: finalSimilarity };
                 });
+
+                const { heartAtack, noHeartAtack, sex0, sex1} = script.calcularPorcentagens(jsonDatabase)
+
+                console.log(heartAtack, noHeartAtack,  sex0, sex1)
+
+                    const data = {
+                        labels: ['No Attack', 'Heart Attack'],
+                        datasets: [{
+                            label: 'Heart Attack Distribution',
+                            data: [heartAtack, noHeartAtack], // Percentuais que você deseja exibir
+                            backgroundColor: ['#ADD8E6', '#FFB347'], // Cores pastel
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    // Configurações do gráfico
+                    const config = {
+                        type: 'pie',
+                        data: data,
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                        }
+                                    }
+                                }
+                            },
+                            responsive: false,
+                            maintainAspectRatio: false,
+                            title: {
+                                display: true,
+                                text: 'Target Distribution',
+                                fontSize: 18,
+                                fontWeight: 'bold'
+                            }
+                        }
+                    };
+
+                    new Chart(
+                        document.getElementById('myPieChart'),
+                        config
+                     );
+                
+                const data2 = {
+                        labels: ['Sex 0', 'Sex 1'],
+                        datasets: [{
+                            label: 'Sex Distribution',
+                            data: [sex0, sex1], // Percentuais que você deseja exibir
+                            backgroundColor: ['#ADD8E6', '#FFB347'], // Cores pastel
+                            hoverOffset: 4
+                        }]
+                    };
+
+                    // Configurações do gráfico
+                    const config2 = {
+                        type: 'pie',
+                        data: data2,
+                        options: {
+                            plugins: {
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(tooltipItem) {
+                                            return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                                        }
+                                    }
+                                }
+                            },
+                            responsive: false,
+                            maintainAspectRatio: false,
+                            title: {
+                                display: true,
+                                text: 'Sex Distribution',
+                                fontSize: 18,
+                                fontWeight: 'bold'
+                            }
+                        }
+                    };
+
+                    new Chart(
+                        document.getElementById('myPieChart2'),
+                        config2
+                    );
                 
                 results.sort((a, b) => b.similarity - a.similarity);
 
@@ -86,7 +212,7 @@ var script = {
             });            
     },
 
-    calculateWeightedSimilarity: function(formData, caseData, weights) {
+    calculateWeightedSimilarity: function (formData, caseData, weights) {
         let totalSimilarity = 0;
         let totalWeight = 0;
 

@@ -1,240 +1,432 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RBC - Heart Attack Prediction</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RBC - Heart Attack Prediction</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+            crossorigin="anonymous">
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+            crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="../css/style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <script src="../javaScript/script.js"></script>
-    <script src="../javaScript/validations.js"></script>
-</head>
+        <link rel="stylesheet" href="../css/style.css">
 
-<body>
-    <div class="container my-4">
-        <div class="row justify-content-center">           
-            
-            <!-- Formulário Pesos e Atributos -->
-            <div class="col-md-10 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Pesos Índices</h5>
-                        <div id="indexesWeight">
-                            <div class="row">
-                                <!-- Campos do formulário de pesos -->
-                                <div class="col-md-6 mb-3">
-                                    <label for="ageWeightInput" class="form-label">Idade</label>
-                                    <input type="text" class="form-control" id="ageWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="genderWeightInput" class="form-label">Sexo</label>
-                                    <input type="text" class="form-control" id="genderWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="chestPainWeightInput" class="form-label">Tipo de Dor no Peito</label>
-                                    <input type="text" class="form-control" id="chestPainWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="restingBloodPressureWeightInput" class="form-label">Pressão Arterial em Repouso</label>
-                                    <input type="text" class="form-control" id="restingBloodPressureWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="cholesterolWeightInput" class="form-label">Colesterol em MG</label>
-                                    <input type="text" class="form-control" id="cholesterolWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="fastingBloodSugarWeightInput" class="form-label">Glicemia de Jejum > 120mg/dl</label>
-                                    <input type="text" class="form-control" id="fastingBloodSugarWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="restingElectrocardiographicWeightInput" class="form-label">Resultados Eletrocardiográficos</label>
-                                    <input type="text" class="form-control" id="restingElectrocardiographicWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="maximumHeartRateWeightInput" class="form-label">Frequência Cardíaca Máxima Alcançada</label>
-                                    <input type="text" class="form-control" id="maximumHeartRateWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="exerciseInducedAnginaWeightInput" class="form-label">Angina Induzida por Exercício</label>
-                                    <input type="text" class="form-control" id="exerciseInducedAnginaWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="previousPeakWeightInput" class="form-label">Pico Anterior</label>
-                                    <input type="text" class="form-control" id="previousPeakWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="slopeWeightInput" class="form-label">Declive</label>
-                                    <input type="text" class="form-control" id="slopeWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="numberOfMajorVesselsWeightInput" class="form-label">Número de Veias Principais</label>
-                                    <input type="text" class="form-control" id="numberOfMajorVesselsWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label for="thalRateWeightInput" class="form-label">Taxa Thal</label>
-                                    <input type="text" class="form-control" id="thalRateWeightInput" placeholder="Valor do Peso">
-                                    <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
+        <script src="../javaScript/script.js"></script>
+        <script src="../javaScript/validations.js"></script>
+    </head>
+
+    <body>
+        <div class="container my-4">
+            <div class="row justify-content-center">
+
+                <!-- Formulário Pesos e Atributos -->
+                <div class="col-md-10 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body row">
+                            <h5 class="card-title text-center mb-4">Pesos -
+                                Índices</h5>
+                            <div id="indexesWeight">
+                                <div class="row">
+                                    <!-- Campos do formulário de pesos -->
+                                    <div class="col-md-6 mb-3">
+                                        <label for="ageWeightInput"
+                                            class="form-label">Idade</label>
+                                        <input type="text" class="form-control"
+                                            id="ageWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.9">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="genderWeightInput"
+                                            class="form-label">Sexo</label>
+                                        <input type="text" class="form-control"
+                                            id="genderWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.7">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="chestPainWeightInput"
+                                            class="form-label">Tipo de Dor no
+                                            Peito</label>
+                                        <input type="text" class="form-control"
+                                            id="chestPainWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.85">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label
+                                            for="restingBloodPressureWeightInput"
+                                            class="form-label">Pressão Arterial
+                                            em Repouso</label>
+                                        <input type="text" class="form-control"
+                                            id="restingBloodPressureWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.65">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="cholesterolWeightInput"
+                                            class="form-label">Colesterol em
+                                            MG</label>
+                                        <input type="text" class="form-control"
+                                            id="cholesterolWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.6">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label
+                                            for="fastingBloodSugarWeightInput"
+                                            class="form-label">Glicemia de Jejum
+                                            > 120mg/dl</label>
+                                        <input type="text" class="form-control"
+                                            id="fastingBloodSugarWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.55">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label
+                                            for="restingElectrocardiographicWeightInput"
+                                            class="form-label">Resultados
+                                            Eletrocardiográficos</label>
+                                        <input type="text" class="form-control"
+                                            id="restingElectrocardiographicWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.8">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="maximumHeartRateWeightInput"
+                                            class="form-label">Frequência
+                                            Cardíaca Máxima Alcançada</label>
+                                        <input type="text" class="form-control"
+                                            id="maximumHeartRateWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.75">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label
+                                            for="exerciseInducedAnginaWeightInput"
+                                            class="form-label">Angina Induzida
+                                            por Exercício</label>
+                                        <input type="text" class="form-control"
+                                            id="exerciseInducedAnginaWeightInput"
+                                            value="0.8"
+                                            placeholder="Valor do Peso">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="previousPeakWeightInput"
+                                            class="form-label">Pico
+                                            Anterior</label>
+                                        <input type="text" class="form-control"
+                                            id="previousPeakWeightInput"
+                                            value="0.7"
+                                            placeholder="Valor do Peso">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="slopeWeightInput"
+                                            class="form-label">Declive</label>
+                                        <input type="text" class="form-control"
+                                            id="slopeWeightInput"
+                                            value="0.6"
+                                            placeholder="Valor do Peso">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label
+                                            for="numberOfMajorVesselsWeightInput"
+                                            class="form-label">Número de Veias
+                                            Principais</label>
+                                        <input type="text" class="form-control"
+                                            id="numberOfMajorVesselsWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.75">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label for="thalRateWeightInput"
+                                            class="form-label">Taxa Thal</label>
+                                        <input type="text" class="form-control"
+                                            id="thalRateWeightInput"
+                                            placeholder="Valor do Peso"
+                                            value="0.75">
+                                        <div
+                                            class="invalid-feedback d-none">Este
+                                            campo é obrigatório.</div>
+                                    </div>
                                 </div>
                             </div>
+
+                            <h5
+                                class="card-title text-center mb-4 attributesTitle">Atributos</h5>
+                            <div id="attributesValues">
+                                <form id="dataForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label for="ageInput"
+                                                class="form-label">Idade</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="ageInput"
+                                                placeholder="Digite a idade">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="genderDropdown"
+                                                class="form-label">Sexo</label>
+                                            <select class="form-control"
+                                                id="genderDropdown">
+                                                <option
+                                                    value>Selecione...</option>
+                                                <option>Masculino</option>
+                                                <option>Feminino</option>
+                                            </select>
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="chestPainDropdown"
+                                                class="form-label">Tipo de Dor
+                                                no Peito</label>
+                                            <select class="form-control"
+                                                id="chestPainDropdown">
+                                                <option
+                                                    value>Selecione...</option>
+                                                <option>Angina típica</option>
+                                                <option>Angina atípica</option>
+                                                <option>Dor não
+                                                    anginosa</option>
+                                                <option>Assintomático</option>
+                                            </select>
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label
+                                                for="restingBloodPressureInput"
+                                                class="form-label">Pressão
+                                                Arterial em Repouso</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="restingBloodPressureInput"
+                                                placeholder="Digite a pressão arterial">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="cholesterolInput"
+                                                class="form-label">Colesterol em
+                                                MG</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="cholesterolInput"
+                                                placeholder="Digite o colesterol">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3 form-check">
+                                            <input type="checkbox"
+                                                class="form-check-input"
+                                                id="fastingBloodSugarCheck">
+                                            <label class="form-check-label"
+                                                for="fastingBloodSugarCheck">Glicemia
+                                                de Jejum > 120mg/dl</label>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3 form-check">
+                                            <input type="checkbox"
+                                                class="form-check-input"
+                                                id="restingEcgCheck">
+                                            <label class="form-check-label"
+                                                for="restingEcgCheck">Resultados
+                                                Eletrocardiográficos em
+                                                Repouso</label>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="maxHeartRateInput"
+                                                class="form-label">Frequência
+                                                Cardíaca Máxima
+                                                Alcançada</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="maxHeartRateInput"
+                                                placeholder="Digite a frequência máxima">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3 form-check">
+                                            <input type="checkbox"
+                                                class="form-check-input"
+                                                id="exerciseAnginaCheck">
+                                            <label class="form-check-label"
+                                                for="exerciseAnginaCheck">Angina
+                                                Induzida por Exercício</label>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="previousPeakInput"
+                                                class="form-label">Pico
+                                                Anterior</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="previousPeakInput"
+                                                placeholder="Digite o pico anterior">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="slopeInput"
+                                                class="form-label">Declive</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="slopeInput"
+                                                placeholder="Digite o declive">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="numVesselsInput"
+                                                class="form-label">Número de
+                                                Veias Principais</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="numVesselsInput"
+                                                placeholder="Digite o número de veias principais">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-3">
+                                            <label for="thalInput"
+                                                class="form-label">Taxa
+                                                Thal</label>
+                                            <input type="text"
+                                                class="form-control"
+                                                id="thalInput"
+                                                placeholder="Digite a taxa Thal">
+                                            <div
+                                                class="invalid-feedback d-none">Este
+                                                campo é obrigatório.</div>
+                                        </div>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="button"
+                                            id="generateResults"
+                                            class="btn btn-primary">Gerar
+                                            Resultados</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
+                    </div>
+                </div>
 
-                        <h5 class="card-title text-center mb-4 attributesTitle">Atributos</h5>
-                        <div id="attributesValues">
-                            <form id="dataForm">
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <label for="ageInput" class="form-label">Idade</label>
-                                        <input type="text" class="form-control" id="ageInput" placeholder="Digite a idade">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
+                <!-- Resultados -->
+                <div class="col-md-12 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title text-center mb-4">Resultados</h5>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label for="genderDropdown" class="form-label">Sexo</label>
-                                        <select class="form-control" id="genderDropdown">
-                                            <option value="">Selecione...</option>
-                                            <option>Masculino</option>
-                                            <option>Feminino</option>
-                                        </select>
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
+                            <div class="d-flex justify-content-around mb-4">
+                                <canvas id="myPieChart" width="400" height="400"></canvas>
+                                <canvas id="myPieChart2" width="400" height="400"></canvas>
+                            </div>
 
-                                    <div class="col-md-6 mb-3">
-                                        <label for="chestPainDropdown" class="form-label">Tipo de Dor no Peito</label>
-                                        <select class="form-control" id="chestPainDropdown">
-                                            <option value="">Selecione...</option>
-                                            <option>Angina típica</option>
-                                            <option>Angina atípica</option>
-                                            <option>Dor não anginosa</option>
-                                            <option>Assintomático</option>
-                                        </select>
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="restingBloodPressureInput" class="form-label">Pressão Arterial em Repouso</label>
-                                        <input type="text" class="form-control" id="restingBloodPressureInput"
-                                            placeholder="Digite a pressão arterial">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="cholesterolInput" class="form-label">Colesterol em MG</label>
-                                        <input type="text" class="form-control" id="cholesterolInput"
-                                            placeholder="Digite o colesterol">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="fastingBloodSugarCheck">
-                                        <label class="form-check-label" for="fastingBloodSugarCheck">Glicemia de Jejum > 120mg/dl</label>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="restingEcgCheck">
-                                        <label class="form-check-label" for="restingEcgCheck">Resultados Eletrocardiográficos em Repouso</label>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="maxHeartRateInput" class="form-label">Frequência Cardíaca Máxima Alcançada</label>
-                                        <input type="text" class="form-control" id="maxHeartRateInput" placeholder="Digite a frequência máxima">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3 form-check">
-                                        <input type="checkbox" class="form-check-input" id="exerciseAnginaCheck">
-                                        <label class="form-check-label" for="exerciseAnginaCheck">Angina Induzida por Exercício</label>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="previousPeakInput" class="form-label">Pico Anterior</label>
-                                        <input type="text" class="form-control" id="previousPeakInput" placeholder="Digite o pico anterior">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="slopeInput" class="form-label">Declive</label>
-                                        <input type="text" class="form-control" id="slopeInput" placeholder="Digite o declive">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="numVesselsInput" class="form-label">Número de Veias Principais</label>
-                                        <input type="text" class="form-control" id="numVesselsInput" placeholder="Digite o número de veias principais">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <label for="thalInput" class="form-label">Taxa Thal</label>
-                                        <input type="text" class="form-control" id="thalInput" placeholder="Digite a taxa Thal">
-                                        <div class="invalid-feedback d-none">Este campo é obrigatório.</div>
-                                    </div>
-                                </div>
-                                <div class="text-center">
-                                    <button type="button" id="generateResults" class="btn btn-primary">Gerar Resultados</button>
-                                </div>                                
-                            </form>
+                            <div class="table-responsive mt-20">
+                                <table class="table table-bordered"
+                                    id="resultsTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Idade</th>
+                                            <th>Sexo</th>
+                                            <th>Tipo de Dor no Peito</th>
+                                            <th>Pressão Arterial em Repouso</th>
+                                            <th>Colesterol em MG</th>
+                                            <th>Glicemia de Jejum >
+                                                120mg/dl</th>
+                                            <th>Resultados
+                                                Eletrocardiográficos</th>
+                                            <th>Frequência Cardíaca Máxima
+                                                Alcançada</th>
+                                            <th>Angina Induzida por
+                                                Exercício</th>
+                                            <th>Pico Anterior</th>
+                                            <th>Declive</th>
+                                            <th>Número de Veias Principais</th>
+                                            <th>Taxa Thal</th>
+                                            <th>Possui Ataque Cardíaco</th>
+                                            <th>Similaridade</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="resultsBody">
+                                        <!-- Resultados -->
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Resultados -->
-            <div class="col-md-12 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Resultados</h5>
-                        <div class="table-responsive">
-                            <table class="table table-bordered" id="resultsTable">
-                                <thead>
-                                    <tr>
-                                        <th>Idade</th>
-                                        <th>Sexo</th>
-                                        <th>Tipo de Dor no Peito</th>
-                                        <th>Pressão Arterial em Repouso</th>
-                                        <th>Colesterol em MG</th>
-                                        <th>Glicemia de Jejum > 120mg/dl</th>
-                                        <th>Resultados Eletrocardiográficos</th>
-                                        <th>Frequência Cardíaca Máxima Alcançada</th>
-                                        <th>Angina Induzida por Exercício</th>
-                                        <th>Pico Anterior</th>
-                                        <th>Declive</th>
-                                        <th>Número de Veias Principais</th>
-                                        <th>Taxa Thal</th>
-                                        <th>Possui Ataque Cardíaco</th>
-                                        <th>Similaridade</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="resultsBody">
-                                    <!-- Resultados -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>            
-
         </div>
-    </div>
-
-</body>
+    </body>
 
 </html>
