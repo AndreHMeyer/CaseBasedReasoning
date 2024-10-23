@@ -176,26 +176,56 @@ var script = {
                         config2
                     );
                 
+                // Preenchimento dos dados de entrada
+                const entryDataBody = document.getElementById('entryDataBody');
+                entryDataBody.innerHTML = '';
+
+                const entryRow = document.createElement('tr');
+                entryRow.innerHTML = `
+                    <td>${formData.age}</td>
+                    <td>${formData.sex === 1 ? 'Masculino' : 'Feminino'}</td>
+                    <td>${formData.cp}</td>
+                    <td>${formData.trtbps}</td>
+                    <td>${formData.chol}</td>
+                    <td>${formData.fbs === 1 ? 'Sim' : 'Não'}</td>
+                    <td>${formData.restecg}</td>
+                    <td>${formData.thalachh}</td>
+                    <td>${formData.exng  === 1 ? 'Sim' : 'Não'}</td>
+                    <td>${formData.oldpeak}</td>
+                    <td>${formData.slp}</td>
+                    <td>${formData.caa}</td>
+                    <td>${formData.thall}</td>
+                    <td>${results[0].caseData.output === 1 ? 'Sim' : 'Não'}</td>
+                `;
+                
+                entryDataBody.appendChild(entryRow); 
+
+                //Preenchimento dos dados do json
                 results.sort((a, b) => b.similarity - a.similarity);
 
                 const resultsBody = document.getElementById('resultsBody');
                 resultsBody.innerHTML = ''; 
 
+                const chestPainTypeNames = {
+                    0: "Angina típica",
+                    1: "Angina atípica",
+                    2: "Dor não anginosa",
+                    3: "Assintomático"
+                };
+
                 results.forEach(result => {
                     const row = document.createElement('tr');
-
-                    var a = result.caseData.heartAttack;
 
                     row.innerHTML = `
                         <td>${result.caseData.age}</td>
                         <td>${result.caseData.sex === 1 ? 'Masculino' : 'Feminino'}</td>
-                        <td>${result.caseData.cp}</td>
+                        <td>${chestPainTypeNames[result.caseData.cp] || result.caseData.cp}</td>
                         <td>${result.caseData.trtbps}</td>
                         <td>${result.caseData.chol}</td>
-                        <td>${result.caseData.fbs}</td>
+                        <td>${result.caseData.fbs === 1 ? 'Sim' : 'Não'}</td>
                         <td>${result.caseData.restecg}</td>
                         <td>${result.caseData.thalachh}</td>
-                        <td>${result.caseData.exng}</td>
+                        <td>${result.caseData.exng === 1 ? 'Sim' : 'Não'}</td>
                         <td>${result.caseData.oldpeak}</td>
                         <td>${result.caseData.slp}</td>
                         <td>${result.caseData.caa}</td>
@@ -270,17 +300,19 @@ var script = {
             { range: "61-77", value: 2, min: 61, max: 77 }
         ];
     
-        function getValueFromPressure(ageValue) {
+        function getValueFromAge(ageValue) {
             for (const range of ageValues) {
-                if (ageValue >= range.min && ageValue <= range.max) {
-                    return range.value;
+                if (ageValue > range.max) {
+                    return range.value; 
+                } else if (ageValue >= range.min && ageValue <= range.max) {
+                    return range.value; 
                 }
             }
-            return null; 
+            return null;
         }
     
-        const valueForm = getValueFromPressure(ageValueForm);
-        const valueJson = getValueFromPressure(caseValue);
+        const valueForm = getValueFromAge(ageValueForm);
+        const valueJson = getValueFromAge(caseValue);
     
         if (valueForm === null || valueJson === null) {
             return 0;
@@ -430,12 +462,14 @@ var script = {
             { range: "151-170", value: 3, min: 151, max: 170 },
             { range: "171-200", value: 4, min: 171, max: 200 }
         ];
-    
+
         function getValueFromPressure(pressureValue) {
             for (const range of restingBloodPressureValues) {
-                if (pressureValue >= range.min && pressureValue <= range.max) {
+                if (pressureValue > range.max){
                     return range.value;
-                }
+                } else if (pressureValue >= range.min && pressureValue <= range.max){
+                    return range.value;
+                }               
             }
             return null; 
         }
@@ -462,17 +496,19 @@ var script = {
             { range: "400-564", value: 5, min: 400, max: 564 }
         ];
     
-        function getValueFromPressure(cholesterolValue) {
+        function getValueFromCholestoral(cholesterolValue) {
             for (const range of cholestoralInMgValues) {
-                if (cholesterolValue >= range.min && cholesterolValue <= range.max) {
+                if(cholesterolValue > range.max){
+                    return range.value;
+                } else if(cholesterolValue >= range.min && cholesterolValue <= range.max) {
                     return range.value;
                 }
             }
             return null; 
         }
     
-        const valueForm = getValueFromPressure(cholestoralInMgValueForm);
-        const valueJson = getValueFromPressure(caseValue);
+        const valueForm = getValueFromCholestoral(cholestoralInMgValueForm);
+        const valueJson = getValueFromCholestoral(caseValue);
     
         if (valueForm === null || valueJson === null) {
             return 0;
@@ -519,17 +555,19 @@ var script = {
             { range: "171-202", value: 5, min: 171, max: 202 }
         ];
     
-        function getValueFromPressure(maximumHeartRateAchievedValue) {
+        function getValueFromMaximumHeartRate(maximumHeartRateAchievedValue) {
             for (const range of maximumHeartRateAchieveValues) {
-                if (maximumHeartRateAchievedValue >= range.min && maximumHeartRateAchievedValue <= range.max) {
+                if (maximumHeartRateAchieveValues > range.max) {
+                    return range.value;
+                } else if (maximumHeartRateAchievedValue >= range.min && maximumHeartRateAchievedValue <= range.max) {
                     return range.value;
                 }
             }
             return null; 
         }
     
-        const valueForm = getValueFromPressure(maximumHeartRateAchievedValueForm);
-        const valueJson = getValueFromPressure(caseValue);
+        const valueForm = getValueFromMaximumHeartRate(maximumHeartRateAchievedValueForm);
+        const valueJson = getValueFromMaximumHeartRate(caseValue);
     
         if (valueForm === null || valueJson === null) {
             return 0;
@@ -549,18 +587,20 @@ var script = {
             { range: "4.1-5.0", value: 4, min: 4.1, max: 5.0 },
             { range: "5.1-6.2", value: 5, min: 5.1, max: 6.2 }
         ];
-    
-        function getValueFromPressure(oldPeakValue) {
+   
+        function getValueFromOldPeak(oldPeakValue) {
             for (const range of oldPeakValues) {
-                if (oldPeakValue >= range.min && oldPeakValue <= range.max) {
+                if (oldPeakValue > range.max) {
+                    return range.value
+                } else if (oldPeakValue >= range.min && oldPeakValue <= range.max) {
                     return range.value;
                 }
             }
             return null; 
         }
     
-        const valueForm = getValueFromPressure(oldPeakValueForm);
-        const valueJson = getValueFromPressure(caseValue);
+        const valueForm = getValueFromOldPeak(oldPeakValueForm);
+        const valueJson = getValueFromOldPeak(caseValue);
     
         if (valueForm === null || valueJson === null) {
             return 0;

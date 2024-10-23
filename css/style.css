@@ -15,7 +15,7 @@ body {
 }
 
 .card-title {
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-align: center;
     color: #6c63ff;
     font-weight: bold;
@@ -102,6 +102,44 @@ body {
 
 .row {
     justify-content: center;
+}
+
+/* Tabela */
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* Tabela */
+.table th, .table td {
+    padding: 12px 15px; 
+    text-align: left;
+    border: 1px solid #dee2e6; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
+}
+
+.table th {
+    background-color: #6c63ff; /* Cor de fundo do cabeçalho */
+    color: white; /* Cor do texto do cabeçalho */
+}
+
+.table td {
+    background-color: #f8f9fa; /* Cor de fundo das células */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Cor de fundo alternada para linhas */
+}
+
+.table tbody tr:hover {
+    background-color: #d3d3d3; /* Cor ao passar o mouse */
+}
+
+/* Estilo da tabela responsiva */
+.table-responsive {
+    overflow-x: auto; /* Permite rolagem horizontal */
 }
 
 /* Responsividade */
