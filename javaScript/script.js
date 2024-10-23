@@ -174,31 +174,7 @@ var script = {
                     new Chart(
                         document.getElementById('myPieChart2'),
                         config2
-                    );
-                
-                // Preenchimento dos dados de entrada
-                const entryDataBody = document.getElementById('entryDataBody');
-                entryDataBody.innerHTML = '';
-
-                const entryRow = document.createElement('tr');
-                entryRow.innerHTML = `
-                    <td>${formData.age}</td>
-                    <td>${formData.sex === 1 ? 'Masculino' : 'Feminino'}</td>
-                    <td>${formData.cp}</td>
-                    <td>${formData.trtbps}</td>
-                    <td>${formData.chol}</td>
-                    <td>${formData.fbs === 1 ? 'Sim' : 'Não'}</td>
-                    <td>${formData.restecg}</td>
-                    <td>${formData.thalachh}</td>
-                    <td>${formData.exng  === 1 ? 'Sim' : 'Não'}</td>
-                    <td>${formData.oldpeak}</td>
-                    <td>${formData.slp}</td>
-                    <td>${formData.caa}</td>
-                    <td>${formData.thall}</td>
-                    <td>${results[0].caseData.output === 1 ? 'Sim' : 'Não'}</td>
-                `;
-                
-                entryDataBody.appendChild(entryRow); 
+                    );               
 
                 //Preenchimento dos dados do json
                 results.sort((a, b) => b.similarity - a.similarity);
@@ -236,6 +212,30 @@ var script = {
 
                     resultsBody.appendChild(row);
                 });
+
+                // Preenchimento dos dados de entrada
+                const entryDataBody = document.getElementById('entryDataBody');
+                entryDataBody.innerHTML = '';
+
+                const entryRow = document.createElement('tr');
+                entryRow.innerHTML = `
+                    <td>${formData.age}</td>
+                    <td>${formData.sex === 1 ? 'Masculino' : 'Feminino'}</td>
+                    <td>${formData.cp}</td>
+                    <td>${formData.trtbps}</td>
+                    <td>${formData.chol}</td>
+                    <td>${formData.fbs === 1 ? 'Sim' : 'Não'}</td>
+                    <td>${formData.restecg}</td>
+                    <td>${formData.thalachh}</td>
+                    <td>${formData.exng  === 1 ? 'Sim' : 'Não'}</td>
+                    <td>${formData.oldpeak}</td>
+                    <td>${formData.slp}</td>
+                    <td>${formData.caa}</td>
+                    <td>${formData.thall}</td>
+                    <td>${results[0].caseData.output === 1 ? 'Sim' : 'Não'}</td>
+                `;
+                
+                entryDataBody.appendChild(entryRow); 
             })
             .catch(error => {
                 alert('Erro ao ler o arquivo JSON: ' + error.message);
